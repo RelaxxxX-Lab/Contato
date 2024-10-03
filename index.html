@@ -1,42 +1,427 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="auto">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Contato - RelaxxxX Design.">
-    <title>Contato - RelaxxxX</title>
+    <meta name="description" content="Portfólio de Design de RelaxxxX, apresentando projetos recentes e informações de contato.">
+    <title>Portfólio de Design - RelaxxxX</title>
+    <link rel="icon" type="image/png" href="https://i.imgur.com/2QS3fSF.png">
 
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" as="style">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" as="style">
+    <!-- Preload para otimizar o carregamento das fontes e ícones -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
     <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f0f0f0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, rgba(106, 13, 173, 0.8), rgba(255, 0, 128, 0.8)), url('https://via.placeholder.com/1920x1080');
+    background-size: cover;
+    background-attachment: fixed; /* Para criar um efeito de paralaxe leve */
+    color: #fff; /* Mudança para branco para melhor contraste */
+    padding-top: 100px;
+    backdrop-filter: blur(50px); /* Aumenta o blur para criar mais suavidade */
+    -webkit-backdrop-filter: blur(15px); /* Suporte para navegadores baseados em WebKit */
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.4); /* Sombras internas para dar profundidade */
+}
+
+        /* Scrollbar estilizada */
+        ::-webkit-scrollbar {
+    width: 10px;
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #aa00ff;
+    border-radius: 10px;
+}
+
+        /* Header fixo com animação */
+        header {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 0;
+            text-align: center;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: fadeInDown 1s ease;
+        }
+
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Menu de navegação */
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 1rem;
+        }
+        nav ul li {
+            margin: 0 1.5rem;
+        }
+        nav ul li a {
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            transition: color 0.3s ease;
+            text-transform: uppercase;
+        }
+        nav ul li a:hover {
+            color: #ae00ff;
+        }
+
+        /* Botão de Discord */
+        .discord-link {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background-color: #7289da;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            text-decoration: none;
+            margin: 1.5rem auto;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+        .discord-link:hover {
+            background-color: #1f299c;
+        }
+
+        /* Container principal */
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 2rem;
+            color: white;
+        }
+
+        /* Seções */
+        section {
+            padding: 4rem 0;
+        }
+        section h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        /* Seção Sobre Mim */
+        #about p {
+            text-align: center;
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: auto;
+            line-height: 1.7;
+            color: #e0e0e0;
+        }
+
+        /* Portfólio com scroll horizontal */
+/* Ajuste para impedir o corte no hover */
+#portfolio {
+    display: flex;
+    overflow-x: visible; /* Deixar o overflow visível para o efeito de hover */
+    scroll-snap-type: x mandatory;
+    gap: 2rem;
+    padding-bottom: 2rem;
+    margin: 3rem 0;
+    position: relative;
+}
+
+    .portfolio-item {
+      flex: 0 0 auto;
+      width: 320px;
+      scroll-snap-align: start;
+      background-color: #ffffff;
+      border-radius: 15px;
+      overflow: hidden; /* Certifique-se de que a borda redonda e a imagem não transbordem */
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      transition: transform 0.4s ease;
+      cursor: pointer;
+      position: relative; /* Adicionado para controlar o z-index */
+     z-index: 1;
+    }
+
+    .portfolio-item:hover {
+        transform: scale(1.05);
+       z-index: 2; /* Colocamos o item acima dos outros quando ele estiver com hover */
+    }
+        .portfolio-item img {
+            width: 100%;
+            border-bottom: 4px solid #9700c9;
+        }
+        .portfolio-item p {
+            padding: 1rem;
+            font-size: 1.1rem;
             color: #333;
-            padding-top: 100px;
+        }
+
+        /* Formulário de contato */
+        form {
+            max-width: 600px;
+            margin: auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        form input, form textarea {
+            width: 100%;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            color: #333;
+            background-color: #f0f0f0;
+        }
+        form button {
+            width: 100%;
+            padding: 1.2rem;
+            background-color: #9700c9;
+            color: white;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: background-color 0.3s ease;
+        }
+        form button:hover {
+            background-color: #7d00b5;
+        }
+
+        /* Tabela de Preços */
+        #pricing {
+            background-color: #fff;
+            color: #333;
+            padding: 4rem 0;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            margin-bottom: 4rem;
+        }
+        #pricing h2 {
+            color: #333;
+            margin-bottom: 2rem;
+        }
+        
+        /* Botões de seleção de moeda */
+        .currency-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .currency-buttons button {
+            padding: 0.5rem 1rem;
+            background-color: #9700c9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        .currency-buttons button:hover {
+            background-color: #7d00b5;
+        }
+
+        .pricing-table {
+            display: flex;
+            justify-content: space-around;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .pricing-item {
+            background-color: #f8f8f8;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            width: 300px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .pricing-item h3 {
+            font-size: 1.8rem;
+            color: #ff0080;
+            margin-bottom: 1rem;
+        }
+        .pricing-item p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .pricing-item .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #6A0DAD;
+        }
+        .pricing-item button {
+            padding: 0.75rem 1.5rem;
+            background-color: #ff0080;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .pricing-item button:hover {
+            background-color: #9700c9;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        footer p {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+        footer .socials {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+        footer .socials a {
+            margin: 0 10px;
+            color: white;
+            font-size: 1.8rem;
+            transition: color 0.3s;
+        }
+        footer .socials a:hover {
+            color: #9700c9;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+            }
+            .portfolio-item {
+                width: 100%;
+            }
+            .pricing-item {
+                width: 100%;
+                margin-bottom: 2rem;
+            }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Contato</h1>
+        <h1>Portfólio</h1>
     </header>
 
     <nav>
         <ul>
-            <li><a href="https://relaxxxx-lab.github.io/Portfolio/">Portfólio</a></li>
-            <li><a href="https://relaxxxx-lab.github.io/Sobre-mim/">Sobre Mim</a></li>
+            <li><a href="#about">Sobre Mim</a></li>
+            <li><a href="#portfolio">Portfólio</a></li>
+            <li><a href="#pricing">Preços</a></li>
+            <li><a href="#contact">Contato</a></li>
         </ul>
     </nav>
 
     <div class="container">
+        <!-- Seção Sobre Mim -->
+        <section id="about">
+            <h2>Sobre Mim</h2>
+            <p>Olá! Pode me chamar de RelaxxxX, um designer com 10 meses de experiência em criar interfaces de usuário. Estou sempre em busca de novos desafios e aprendizado constante. Aqui estão alguns dos meus projetos recentes!</p>
+            <a href="https://discord.gg/pKzBTJQmD9" class="discord-link" aria-label="Junte-se ao meu Discord"><i class="fab fa-discord"></i> Junte-se ao meu Discord</a>
+        </section>
+
+        <!-- Seção Portfólio -->
+        <section id="portfolio">
+            <div class="portfolio-item">
+                <img src="https://i.imgur.com/Lc0G9oU.png" alt="Projeto 1: Interface de Barra de Vida" onclick="openModal(this)" loading="lazy">
+                <p>Projeto 1: Interface de Barra de Vida para jogos</p>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://i.imgur.com/qjlffVH.png" alt="Projeto 2: Efeitos visuais aprimorados" onclick="openModal(this)" loading="lazy">
+                <p>Projeto 2: Efeitos visuais aprimorados para barra de vida</p>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://i.imgur.com/wdan8oQ.png" alt="Projeto 3: Prototipação de UI para web" onclick="openModal(this)" loading="lazy">
+                <p>Projeto 3: Executor Ui (Não usado, Apenas um teste.)</p>
+            </div>
+        </section>
+
+        <!-- Seção Preços -->
+        <section id="pricing">
+            <h2>Preços</h2>
+            
+            <!-- Botões de seleção de moeda -->
+            <div class="currency-buttons">
+                <button onclick="changeCurrency('USD')">EUA (USD)</button>
+                <button onclick="changeCurrency('EUR')">EU (EUR)</button>
+                <button onclick="changeCurrency('BRL')">BRL (R$)</button>
+                <button onclick="changeCurrency('Robux')">Robux</button>
+            </div>
+
+            <div class="pricing-table">
+                <div class="pricing-item">
+                    <h3>Pacote Básico</h3>
+                    <p>Ideal para projetos simples</p>
+                    <div class="price" id="price-basic">BRL 10+</div>
+                    <button onclick="redirectToDiscord()">Contratar</button>
+                </div>
+                <div class="pricing-item">
+                    <h3>Pacote Médio</h3>
+                    <p>Para projetos mais complexos</p>
+                    <div class="price" id="price-medium">BRL 30+</div>
+                    <button onclick="redirectToDiscord()">Contratar</button>
+                </div>
+                <div class="pricing-item">
+                    <h3>Pacote Avançado</h3>
+                    <p>Soluções completas e personalizadas</p>
+                    <div class="price" id="price-advanced">BRL 45+</div>
+                    <button onclick="redirectToDiscord()">Contratar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Contato -->
         <section id="contact">
             <h2>Contato</h2>
-            <form action="https://formsubmit.co/seu-email" method="POST">
+            <form action="https://formsubmit.co/lagartomancowl@outlook.com" method="POST">
                 <input type="text" name="name" placeholder="Seu Nome" required>
                 <input type="email" name="email" placeholder="Seu Email" required>
                 <textarea name="message" rows="5" placeholder="Sua Mensagem" required></textarea>
@@ -52,6 +437,54 @@
         </div>
     </footer>
 
+    <!-- Modal para exibir imagens em tela cheia -->
+    <div id="imageModal" class="modal">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+        // Função para abrir o modal e exibir a imagem em tela cheia
+        function openModal(image) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            modal.style.display = 'block';
+            modalImage.src = image.src;
+        }
+
+        // Função para fechar o modal
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+        }
+
+        // Fechar o modal clicando fora da imagem
+        window.onclick = function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Função para mudar a moeda dos preços
+        function changeCurrency(currency) {
+            let prices = {
+                USD: { basic: "2+", medium: "6+", advanced: "10+" },
+                EUR: { basic: "2+", medium: "5+", advanced: "8+" },
+                BRL: { basic: "10+", medium: "30+", advanced: "45+" },
+                Robux: { basic: "200+", medium: "500+", advanced: "800+" }
+            };
+
+            document.getElementById('price-basic').innerText = currency === 'Robux' ? prices[currency].basic + ' Robux' : currency + ' ' + prices[currency].basic;
+            document.getElementById('price-medium').innerText = currency === 'Robux' ? prices[currency].medium + ' Robux' : currency + ' ' + prices[currency].medium;
+            document.getElementById('price-advanced').innerText = currency === 'Robux' ? prices[currency].advanced + ' Robux' : currency + ' ' + prices[currency].advanced;
+        }
+
+        // Função para redirecionar ao Discord ao clicar em contratar
+        function redirectToDiscord() {
+            window.location.href = "https://discord.gg/pKzBTJQmD9";
+        }
+    </script>
+
 </body>
 </html>
-
